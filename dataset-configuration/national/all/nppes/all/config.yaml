@@ -1,3 +1,5 @@
 url: https://download.cms.gov/nppes/NPPES_Data_Dissemination_{{ month_name }}_{{ year }}.zip
-format: nppes
+schema: nppes
 update_frequency: monthly
+compression: zip
+format: csv
