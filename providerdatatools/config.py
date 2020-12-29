@@ -47,6 +47,8 @@ def iterate_datasets():
 def iterate_download_configs():
     config_root = paths.get_download_root()
     for organization_type in os.listdir(config_root):
+        if organization_type == "README.md":
+            continue
         organization_path = os.path.join(config_root, organization_type)
         for provider_subset in os.listdir(organization_path):
             provider_subset_path = os.path.join(organization_path, provider_subset)
@@ -55,7 +57,7 @@ def iterate_download_configs():
                 for dataset in os.listdir(datastore_path):
                     dataset_path = os.path.join(datastore_path, dataset)
                     latest = max([datetime.fromisoformat(timestamp) for timestamp in os.listdir(dataset_path)])
-                    latest_path = os.path.join(datastore_path, latest)
+                    latest_path = os.path.join(dataset_path, str(latest.isoformat()))
                     config_file = get_config_file(latest_path)
                     with open(config_file) as f:
                         config = yaml.load(f, Loader=yaml.FullLoader)
