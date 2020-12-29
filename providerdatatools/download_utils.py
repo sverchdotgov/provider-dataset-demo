@@ -5,16 +5,6 @@ import requests
 import sys
 import paths
 
-def build_download_directory(metadata):
-    return os.path.join(
-        paths.get_git_root(os.path.dirname(os.path.realpath(__file__))),
-        "data",
-        metadata["organization_type"],
-        metadata["provider_subset"],
-        metadata["datastore"],
-        metadata["dataset"],
-        metadata["datetime"])
-
 def download_with_progress(file_name, link):
     with open(file_name, "wb") as f:
         print ("Downloading %s and saving as %s" % (link, file_name))

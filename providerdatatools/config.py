@@ -43,3 +43,21 @@ def iterate_datasets():
                         config = yaml.load(f, Loader=yaml.FullLoader)
                     metadata = build_metadata(organization_type, provider_subset, datastore, dataset)
                     yield dataset_path, config, metadata
+
+def iterate_download_configs():
+    config_root = paths.get_download_root()
+    for organization_type in os.listdir(config_root):
+        organization_path = os.path.join(config_root, organization_type)
+        for provider_subset in os.listdir(organization_path):
+            provider_subset_path = os.path.join(organization_path, provider_subset)
+            for datastore in os.listdir(provider_subset_path):
+                datastore_path = os.path.join(provider_subset_path, datastore)
+                for dataset in os.listdir(datastore_path):
+                    dataset_path = os.path.join(datastore_path, dataset)
+                    latest = max([datetime.fromisoformat(timestamp) for timestamp in os.listdir(dataset_path)])
+                    latest_path = os.path.join(datastore_path, latest)
+                    config_file = get_config_file(latest_path)
+                    with open(config_file) as f:
+                        config = yaml.load(f, Loader=yaml.FullLoader)
+                    metadata = build_metadata(organization_type, provider_subset, datastore, dataset)
+                    yield dataset_path, config, metadata

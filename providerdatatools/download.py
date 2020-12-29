@@ -8,7 +8,7 @@ import config as config_utils
 
 for config_directory, config, metadata in config_utils.iterate_datasets():
     url = config_utils.render_url(config, metadata)
-    download_directory = download_utils.build_download_directory(metadata)
+    download_directory = paths.build_download_directory(metadata)
     os.makedirs(download_directory, exist_ok=True)
     if "compression" in config:
         download_path = os.path.join(download_directory, "dataset.%s" % config["compression"])
