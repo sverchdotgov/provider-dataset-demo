@@ -1,0 +1,5 @@
+# Go to https://data.cms.gov/public-provider-enrollment and click through to
+# find this URL.
+url: https://data.cms.gov/api/views/je57-c47h/rows.csv
+format: pecos-address
+update_frequency: inconsistent
